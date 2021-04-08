@@ -5,13 +5,14 @@ import Stage from "./Stage";
 import Display from "./Display";
 import StartButton from "./StartButton";
 
-import StyledTetrisWrapper from "./styles/StyledTetris";
-import StyledTetris from "./styles/StyledTetris";
+import {StyledTetrisWrapper ,StyledTetrise} from "./styles/StyledTetris";
 import { createStage } from "../gameHelper";
+
+
 const Tetris = () => {
   return (
     <StyledTetrisWrapper>
-      <StyledTetris>
+      <StyledTetrise>
         <Stage stage={createStage()} />
         <aside>
           <div>
@@ -21,7 +22,7 @@ const Tetris = () => {
           </div>
           <StartButton />
         </aside>
-      </StyledTetris>
+      </StyledTetrise>
     </StyledTetrisWrapper>
   );
 };

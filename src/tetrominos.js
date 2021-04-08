@@ -1,6 +1,6 @@
 //定义所有出现的termiominos、
 
-const TETROMINOS = {
+export  const TETROMINOS = {
   0: { shape: [[0]], color: "0,0,0" },
 
   I: {
@@ -60,11 +60,11 @@ const TETROMINOS = {
     color: "223,78,78",
   },
 };
-const randomTetromions = () => {
+ export const randomTetromions = () => {
   const tetrominos = "IJLOSTZ";
   const randTetromions =
     tetrominos[Math.floor(Math.random() * tetrominos.length)]; //随机选择tetormions
 
   return TETROMINOS[randTetromions]; //返回随机选择的tetromions的样式
 };
-export default { TETROMINOS, randomTetromions };
+
