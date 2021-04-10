@@ -21,7 +21,7 @@ const Tetris = () => {
 
   console.log("re-render");
   const movePlayer = (din) => {
-    updataPlayerPos({ x: din, y: 0 });
+    updataPlayerPos({ x: din, y: 0 }); //左右移动
   };
   const startGame = () => {
     setStage(createStage()); //重新构建stage
