@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { createStage } from "../gameHelper";
+import { createStage, checkCollision } from "../gameHelper";
 //Compoments
 import Stage from "./Stage";
 import Display from "./Display";
@@ -16,19 +16,32 @@ const Tetris = () => {
   const [dropTime, setDropTime] = useState();
   const [gameOver, setGameOver] = useState(false);
 
-  const [player,updataPlayerPos,resetPlayer] = usePlayer(); //pos,tetrominos
+  const [player, updataPlayerPos, resetPlayer] = usePlayer(); //pos,tetrominos
   const [stage, setStage] = useStage(player);
 
   console.log("re-render");
   const movePlayer = (din) => {
-    updataPlayerPos({ x: din, y: 0 }); //左右移动
+    if (!checkCollision(player, stage, { x: din, y: 0 })) {
+      updataPlayerPos({ x: din, y: 0 }); //左右移动
+    }
   };
   const startGame = () => {
     setStage(createStage()); //重新构建stage
     resetPlayer();
+    setGameOver(false)
   };
   const drop = () => {
-    updataPlayerPos = { x: 0, y: 1, collided: false };
+    if (!checkCollision(player, stage, { x: 0, y: 1 })) {
+      updataPlayerPos({ x: 0, y: 1, collided: false });
+    } else {
+      if(player.pos.y < 1){
+
+        console.log('Game Over!')
+        setGameOver(true);
+        setDropTime(null);
+      }
+      updataPlayerPos({ x: 0, y: 0, collided: true });
+    }
   };
   const dropPlayer = () => {
     drop();
