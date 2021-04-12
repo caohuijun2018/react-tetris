@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
-import { STAGE_WIDTH } from "../gameHelper";
+import { checkCollision, STAGE_WIDTH } from "../gameHelper";
 import { randomTetromions, TETROMINOS } from "../tetrominos";
 
 export const usePlayer = () => {
-  const [player, setPlayer] = useState({
+  let [player, setPlayer] = useState({
     pos: { x: 0, y: 0 },
     tetromino: TETROMINOS[0].shape, //不会显示tetromions
     collided: false, //碰撞属性
@@ -23,5 +23,35 @@ export const usePlayer = () => {
     });
   }, []);
 
-  return [player, updataPlayerPos, resetPlayer];
+  const rotate = (matrix,dir) => {
+      
+      const rotatedTetromion = matrix.map((_,index) => {
+          matrix.map(col => col[index]) //让 行变为列
+      })
+      if(dir > 0){
+          return rotatedTetromion.map(row => row.reverse());
+      }
+      return rotatedTetromion.reverse()
+  }
+
+  const playerRotate = (stage,dir) => {
+      const clonedPlayer = JSON.parse(JSON.stringify(player));
+      console.log(clonedPlayer.tetromino)
+      clonedPlayer.tetromino = rotate(clonedPlayer.tetromino,dir);
+
+      const pos = clonedPlayer.pos.x;
+      let offset = 1;
+      while(checkCollision(clonedPlayer,stage,{x:0,y:0})) {
+          clonedPlayer.pos.x += offset;
+          offset = -(offset + offset > 0 ? 1 : -1);
+          if(offset > clonedPlayer.tetromino[0].length) {
+              rotate(clonedPlayer.tetromino,-dir);
+              clonedPlayer.pos.x = pos;
+              return;
+          }
+      }
+      setPlayer(clonedPlayer)
+  }
+
+  return [player, updataPlayerPos, resetPlayer,playerRotate];
 };

@@ -16,8 +16,8 @@ const Tetris = () => {
   const [dropTime, setDropTime] = useState();
   const [gameOver, setGameOver] = useState(false);
 
-  const [player, updataPlayerPos, resetPlayer] = usePlayer(); //pos,tetrominos
-  const [stage, setStage] = useStage(player);
+  const [player, updataPlayerPos, resetPlayer,playerRotate] = usePlayer(); //pos,tetrominos
+  const [stage, setStage] = useStage(player,resetPlayer);
 
   console.log("re-render");
   const movePlayer = (din) => {
@@ -35,7 +35,7 @@ const Tetris = () => {
       updataPlayerPos({ x: 0, y: 1, collided: false });
     } else {
       if(player.pos.y < 1){
-
+        alert('Game Over!')
         console.log('Game Over!')
         setGameOver(true);
         setDropTime(null);
@@ -56,6 +56,8 @@ const Tetris = () => {
         movePlayer(1);
       } else if (keyCode === 40) {
         dropPlayer();
+      }else if(keyCode === 38){
+        playerRotate(stage,1);
       }
     }
   };
