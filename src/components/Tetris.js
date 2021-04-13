@@ -57,6 +57,7 @@ const Tetris = () => {
       } else if (keyCode === 40) {
         dropPlayer();
       }else if(keyCode === 38){
+        console.log('上键')
         playerRotate(stage,1);
       }
     }

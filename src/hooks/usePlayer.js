@@ -24,10 +24,9 @@ export const usePlayer = () => {
   }, []);
 
   const rotate = (matrix,dir) => {
-      
-      const rotatedTetromion = matrix.map((_,index) => {
-          matrix.map(col => col[index]) //让 行变为列
-      })
+      console.log('翻转之前',matrix);
+      const rotatedTetromion = matrix[0].map((col, i) => matrix.map(row => row[i]))
+      console.log('之后',rotatedTetromion)
       if(dir > 0){
           return rotatedTetromion.map(row => row.reverse());
       }
@@ -43,7 +42,7 @@ export const usePlayer = () => {
       let offset = 1;
       while(checkCollision(clonedPlayer,stage,{x:0,y:0})) {
           clonedPlayer.pos.x += offset;
-          offset = -(offset + offset > 0 ? 1 : -1);
+          offset = -(offset + offset > 0 ? 1 : -1);  //??
           if(offset > clonedPlayer.tetromino[0].length) {
               rotate(clonedPlayer.tetromino,-dir);
               clonedPlayer.pos.x = pos;
