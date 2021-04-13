@@ -11,7 +11,7 @@ import { StyledTetrisWrapper, StyledTetrise } from "./styles/StyledTetris";
 //Custom Hooks
 import { useStage } from "../hooks/useStage";
 import { usePlayer } from "../hooks/usePlayer";
-
+import { useInterval} from '../hooks/useInterval'
 const Tetris = () => {
   const [dropTime, setDropTime] = useState();
   const [gameOver, setGameOver] = useState(false);
@@ -29,6 +29,7 @@ const Tetris = () => {
     setStage(createStage()); //重新构建stage
     resetPlayer();
     setGameOver(false)
+    setDropTime(1000);
   };
   const drop = () => {
     if (!checkCollision(player, stage, { x: 0, y: 1 })) {
@@ -46,6 +47,14 @@ const Tetris = () => {
   const dropPlayer = () => {
     drop();
   };
+
+  const keyup = ({keyCode}) => { //松开上键时，恢复自动下降
+    if(!gameOver){
+      if(keyCode === 40){
+        setDropTime(1000);
+      }
+    }
+  }
   const move = ({ keyCode }) => {
     if (!gameOver) {
       if (keyCode === 37) {
@@ -56,14 +65,18 @@ const Tetris = () => {
         movePlayer(1);
       } else if (keyCode === 40) {
         dropPlayer();
+        setDropTime(null); //当用户按住下键时，取消自动下降
       }else if(keyCode === 38){
         console.log('上键')
         playerRotate(stage,1);
       }
     }
   };
+  useInterval(() => {
+    drop();
+  },[dropTime])
   return (
-    <StyledTetrisWrapper role="button" tabIndex="0" onKeyDown={(e) => move(e)}>
+    <StyledTetrisWrapper role="button" tabIndex="0" onKeyDown={(e) => move(e)} onKeyUp = {keyup}>
       <StyledTetrise>
         <Stage stage={stage} />
         <aside>
