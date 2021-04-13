@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import swal from 'sweetalert';
 
 import { createStage, checkCollision } from "../gameHelper";
 //Compoments
@@ -43,16 +44,18 @@ const Tetris = () => {
     if (rows > (level + 1) * 3) {
       setLevel((prev) => prev + 1);
 
-      setDropTime(1000 / (level + 1) + 200);
+      setDropTime(1000 / (level + 1) + 100);
     }
     if (!checkCollision(player, stage, { x: 0, y: 1 })) {
       updataPlayerPos({ x: 0, y: 1, collided: false });
     } else {
       if (player.pos.y < 1) {
-        alert("Game Over!");
+        swal("Game Over!");
         console.log("Game Over!");
         setGameOver(true);
         setDropTime(null);
+      }else if(score > 10000){
+        alert('You Are Awesome！')
       }
       updataPlayerPos({ x: 0, y: 0, collided: true });
     }
