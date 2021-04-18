@@ -24,7 +24,6 @@ const Tetris = () => {
     rowsCleared
   );
 
-  console.log("re-render");
   const movePlayer = (din) => {
     if (!checkCollision(player, stage, { x: din, y: 0 })) {
       updataPlayerPos({ x: din, y: 0 }); //左右移动
@@ -44,18 +43,18 @@ const Tetris = () => {
     if (rows > (level + 1) * 3) {
       setLevel((prev) => prev + 1);
 
-      setDropTime(1000 / (level + 1) + 100);
+      setDropTime(1000 / (level + 1) + 200);
     }
     if (!checkCollision(player, stage, { x: 0, y: 1 })) {
       updataPlayerPos({ x: 0, y: 1, collided: false });
     } else {
       if (player.pos.y < 1) {
-        swal("Game Over!");
-        console.log("Game Over!");
+        
         setGameOver(true);
         setDropTime(null);
+        swal("Game Over!");
       }else if(score > 10000){
-        alert('You Are Awesome！')
+        swal('You Are Awesome！')
       }
       updataPlayerPos({ x: 0, y: 0, collided: true });
     }
@@ -92,8 +91,8 @@ const Tetris = () => {
       }
     }
   };
-
   return (
+   
     <StyledTetrisWrapper
       role="button"
       tabIndex="0"
@@ -103,13 +102,13 @@ const Tetris = () => {
       <StyledTetrise>
         <Stage stage={stage} />
         <aside>
-          {gameOver ? (
-            <Display gameOver={gameOver} />
+          {gameOver === true? (
+            <Display gameOver={true} text = {'Game Over!'} />
           ) : (
             <div>
-              <Display text={`Scorce : ${score}`} />
-              <Display text={`Rows : ${rows}`} />
-              <Display text={`Level : ${level}`} />
+              <Display gameOver = {false} text={`Scorce : ${score}`} />
+              <Display gameOver = {false} text={`Rows : ${rows}`} />
+              <Display gameOver = {false} text={`Level : ${level}`} />
             </div>
           )}
           <StartButton onClick={startGame} />
