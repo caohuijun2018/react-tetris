@@ -8,17 +8,6 @@ export const useStage = (player, resetPlayer) => {
   useEffect(() => {
     setRowsCleaded(0);
 
-    const sweepRows = (newStage) =>
-      newStage.reduce((ack, row) => {
-        if (row.findIndex((cell) => cell[0] === 0) === -1) {
-          setRowsCleaded((prev) => prev + 1);
-          ack.unshift(new Array(newStage[0].length).fill([0, "clear"])); //用压入一行新的空数组的方式，代替所有的数组向下移动
-          return ack;
-        }
-        ack.push(row);
-        return ack;
-      }, []);
-
     const updateStage = (prevStage) => {
       // First flush the stage
       const newStage = prevStage.map((row) =>
@@ -35,16 +24,27 @@ export const useStage = (player, resetPlayer) => {
             ];
           }
         });
-      }); //？？
+      }); 
+      //上面函数的作用为：通过遍历player中的tetromion，找到需要留下来的方块的部分相对于stage的坐标(play.pos.y + tetromino.y)
 
       // Then check if we collided
       if (player.collided) {
-        resetPlayer();
+        resetPlayer();   
         return sweepRows(newStage)
       }
 
       return newStage;
     };
+    const sweepRows = (newStage) =>
+      newStage.reduce((ack, row) => {
+        if (row.findIndex((cell) => cell[0] === 0) === -1) {
+          setRowsCleaded((prev) => prev + 1);
+          ack.unshift(new Array(newStage[0].length).fill([0, "clear"])); //用压入一行新的空数组的方式，代替所有的数组向下移动
+          return ack;
+        }
+        ack.push(row);
+        return ack;
+      }, []);
 
     setStage((prev) => updateStage(prev));
   }, [player, resetPlayer]);

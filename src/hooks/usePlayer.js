@@ -24,9 +24,7 @@ export const usePlayer = () => {
   }, []);
 
   const rotate = (matrix,dir) => {
-      console.log('翻转之前',matrix);
       const rotatedTetromion = matrix[0].map((col, i) => matrix.map(row => row[i]))
-      console.log('之后',rotatedTetromion)
       if(dir > 0){
           return rotatedTetromion.map(row => row.reverse());
       }
