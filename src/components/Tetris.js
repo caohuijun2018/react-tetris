@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 import { createStage, checkCollision } from "../gameHelper";
 //Compoments
@@ -17,13 +17,14 @@ import { useGameStatus } from "../hooks/useGameStatus";
 const Tetris = () => {
   const [dropTime, setDropTime] = useState();
   const [gameOver, setGameOver] = useState(false);
+  const [gameWin, setGameWin] = useState(false);
 
   const [player, updataPlayerPos, resetPlayer, playerRotate] = usePlayer(); //pos,tetrominos
   const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
   const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(
     rowsCleared
   );
-
+  
   const movePlayer = (din) => {
     if (!checkCollision(player, stage, { x: din, y: 0 })) {
       updataPlayerPos({ x: din, y: 0 }); //左右移动
@@ -33,6 +34,7 @@ const Tetris = () => {
     setStage(createStage()); //重新构建stage
     resetPlayer();
     setGameOver(false);
+    setGameWin(false);
     setDropTime(1000);
     setScore(0);
     setLevel(0);
@@ -45,18 +47,22 @@ const Tetris = () => {
 
       setDropTime(1000 / (level + 1) + 200);
     }
-    if (!checkCollision(player, stage, { x: 0, y: 1 })) {
-      updataPlayerPos({ x: 0, y: 1, collided: false });
-    } else {
-      if (player.pos.y < 1) {
-        
-        setGameOver(true);
-        setDropTime(null);
-        swal("Game Over!");
-      }else if(score > 10000){
-        swal('You Are Awesome！')
-      }
+    if (score >= 1000) {
+      setGameWin(true);
+      setDropTime(null);
+      swal("You Are Wine");
       updataPlayerPos({ x: 0, y: 0, collided: true });
+    } else {
+      if (!checkCollision(player, stage, { x: 0, y: 1 })) {
+        updataPlayerPos({ x: 0, y: 1, collided: false });
+      } else {
+        if (player.pos.y < 1) {
+          setGameOver(true);
+          setDropTime(null);
+          swal("Game Over!");
+        }
+        updataPlayerPos({ x: 0, y: 0, collided: true });
+      }
     }
   };
   const dropPlayer = () => {
@@ -91,8 +97,8 @@ const Tetris = () => {
       }
     }
   };
+  console.log(gameWin);
   return (
-   
     <StyledTetrisWrapper
       role="button"
       tabIndex="0"
@@ -102,13 +108,19 @@ const Tetris = () => {
       <StyledTetrise>
         <Stage stage={stage} />
         <aside>
-          {gameOver === true? (
-            <Display gameOver={true} text = {'Game Over!'} />
+          {gameWin === true ? (
+            <Display
+              gameWin={true}
+              text={"Game Win!"}
+              gameOver={false}
+            ></Display>
+          ) : gameOver === true ? (
+            <Display gameOver={true} text={"Game Over!"} gameWin={false} />
           ) : (
             <div>
-              <Display gameOver = {false} text={`Scorce : ${score}`} />
-              <Display gameOver = {false} text={`Rows : ${rows}`} />
-              <Display gameOver = {false} text={`Level : ${level}`} />
+              <Display gameOver={false} text={`Scorce : ${score}`} />
+              <Display gameOver={false} text={`Rows : ${rows}`} />
+              <Display gameOver={false} text={`Level : ${level}`} />
             </div>
           )}
           <StartButton onClick={startGame} />
