@@ -8,6 +8,7 @@ import Display from "./Display";
 import StartButton from "./StartButton";
 //styled Components
 import { StyledTetrisWrapper, StyledTetrise } from "./styles/StyledTetris";
+import {StyledHeadline} from '../components/styles/StyledHeadline'
 
 //Custom Hooks
 import { useStage } from "../hooks/useStage";
@@ -96,8 +97,7 @@ const Tetris = () => {
         playerRotate(stage, 1);
       }
     }
-  };
-  console.log(gameWin);
+  };  
   return (
     <StyledTetrisWrapper
       role="button"
@@ -105,7 +105,9 @@ const Tetris = () => {
       onKeyDown={(e) => move(e)}
       onKeyUp={keyup}
     >
+      <StyledHeadline>Welcome to the Tetris Game</StyledHeadline>
       <StyledTetrise>
+     
         <Stage stage={stage} />
         <aside>
           {gameWin === true ? (
