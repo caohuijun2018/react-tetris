@@ -45,13 +45,11 @@ const Tetris = () => {
   const drop = () => {
     if (rows > (level + 1) * 3) {
       setLevel((prev) => prev + 1);
-
       setDropTime(1000 / (level + 1) + 200);
     }
     if (score >= 1000) {
       setGameWin(true);
       setDropTime(null);
-      swal("You Are Wine");
       updataPlayerPos({ x: 0, y: 0, collided: true });
     } else {
       if (!checkCollision(player, stage, { x: 0, y: 1 })) {
@@ -60,7 +58,6 @@ const Tetris = () => {
         if (player.pos.y < 1) {
           setGameOver(true);
           setDropTime(null);
-          swal("Game Over!");
         }
         updataPlayerPos({ x: 0, y: 0, collided: true });
       }
