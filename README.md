@@ -1,8 +1,8 @@
 # 俄罗斯方块小游戏
 
 ## 游戏界面
+### 充满质感的游戏界面，带你走进俄罗斯方块的精彩世界
 ![Tetris](https://github.com/caohuijun2018/react-tetris/blob/main/src/view.png)
-充满质感的游戏界面，带你走进俄罗斯方块的精彩世界
 
 ## 游戏亮点
 * 使用了自定义的hookes函数，进行游戏各个状态变量的改变
@@ -27,4 +27,4 @@
 It's serverd in [http://localhost:3000/](http://localhost:3000/)
 
 ## 游戏试玩
- 点击(这里)[https://react-tetris.hi-hi.cn/]，让我们开始游戏吧！
+ 点击[这里](https://react-tetris.hi-hi.cn/)，让我们开始游戏吧！
