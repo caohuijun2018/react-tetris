@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 // import * as serviceWorker from './serviceWorker';
-document.title = 'Tetris-Game'
+document.title = 'TETRI-——GAME'
 ReactDOM.render(<App />, document.getElementById('root') );
 
 // If you want your app to work offline and load faster, you can change
