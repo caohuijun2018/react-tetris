@@ -27,4 +27,4 @@
 It's serverd in [http://localhost:3000/](http://localhost:3000/)
 
 ## 游戏试玩
- 点击[这里](https://react-tetris.hi-hi.cn/)，让我们开始游戏吧！
+点击[这里](https://react-tetris.hi-hi.cn/)，让我们开始游戏吧！
