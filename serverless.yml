@@ -1,0 +1,15 @@
+component: website
+name: react-tetris
+stage: prod
+
+inputs:
+  src:
+    root: ./
+    src: ./
+    dist: ./build
+    hook: npm run build
+    index: index.html
+    websitePath: ./
+  region: ap-shanghai
+  bucketName: caohuijun-react-tetris
+  protocol: http
