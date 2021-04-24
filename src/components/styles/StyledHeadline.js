@@ -5,6 +5,6 @@ color: antiquewhite;
 margin-left: 25vw;
 font-family: 'Pixel';
 margin-top: 50px;
-margin-bottom: 0px
-font-size: 12rem;
+margin-bottom: 0px;
+font-size: 2.5rem;
 `
