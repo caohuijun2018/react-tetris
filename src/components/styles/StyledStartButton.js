@@ -7,11 +7,11 @@ export const StyledStartButton = styled.button`
     min-height: 30px;
     width: 100%;
     border: none;
-    color: white;
+    color: antiquewhite;
     border-radius: 20px;
     font-family: Pixel;
-    font-size: 1rem;
-    background: #333;
+    font-size: 1.1rem;
+    background: blueviolet;
     outline: none;
     cursor: pointer:
 `;

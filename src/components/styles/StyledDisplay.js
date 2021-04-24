@@ -6,15 +6,13 @@ export const StyledDisplay = styled.div`
     algin-items: center;  
     margin: 0 0 20px 0;
     padding 20px;
-    border: 4px solid #333;
+    border: 2px solid #ffa500;
     min-height: 30px;
     width: 100%;
     border-radius:20px;
-    color: ${props => (props.gameWin === true ? 'blue' : (props.gameOver === true ? 'red' : '#999'))};
-
-    background: #000;
-    font-family: Pixel, Arial, Helvetica, sans-serif;
-    font-size: 0.8rem;
+    color: ${props => (props.gameWin === true ? 'blue' : (props.gameOver === true ? 'red' : 'antiquewhite'))};
+    font-family: Regular;
+    font-size: 1.2rem;
 `;
 
 //algin-items: 在交叉轴上的对齐方式

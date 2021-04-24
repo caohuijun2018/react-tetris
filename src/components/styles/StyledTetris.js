@@ -13,7 +13,7 @@ export const StyledTetrise = styled.div`
     display:flex;
     algin-items: flex-start;
     padding: 40px;
-    margin: 0 auto; 
+    margin: 0 25vw auto; 
     max-width: 900px;
     aside {
         width: 100%
