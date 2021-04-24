@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import swal from "sweetalert";
 
 import { createStage, checkCollision } from "../gameHelper";
 //Compoments
